@@ -6,7 +6,6 @@ class MiniBatchSGD:
         self.max_itr = max_itr
         self.tol = tol
         self.batch_size = batch_size
-        self.losses = []
 
     def get_batches(self, X, y):
         """Generate mini-batches from the data"""

@@ -1,5 +1,3 @@
-import numpy as np
-
 from models.net_layer import Layer
 from optimizers.mini_batch_sgd import MiniBatchSGD
 from losses.cross_entropy import BinaryCrossEntropyLoss
@@ -35,35 +33,28 @@ class NN:
             num_batches = 0
 
             for X_batch, y_batch in self.optimizer.get_batches(self.X, self.y):
+                # Forward pass
                 A = X_batch
                 for layer in self.layers:
                     A = layer.forward(A)
-                y_pred_batch = A
 
-                loss = self.loss.loss(y_pred_batch, y_batch)
+                # Loss
+                loss = self.loss.loss(A, y_batch)
                 current_epoch_loss += loss
                 num_batches += 1
 
-                dA = self.loss.loss_derivative(y_pred_batch, y_batch)
-                batch_gradients_W = []
-                batch_gradients_b = []
+                # Backward pass with immediate weight updates
+                dA = self.loss.loss_derivative(A, y_batch)
                 for layer in reversed(self.layers):
-                    dA_prev, dW, db = layer.backward(dA)
-                    dA = dA_prev
-                    batch_gradients_W.append(dW)
-                    batch_gradients_b.append(db)
-
-                batch_gradients_W.reverse()
-                batch_gradients_b.reverse()
-
-                for i, layer in enumerate(self.layers):
-                    self.optimizer.step(layer, batch_gradients_W[i], batch_gradients_b[i])
+                    dA, dW, db = layer.backward(dA)
+                    self.optimizer.step(layer, dW, db)
 
             avg_epoch_loss = current_epoch_loss / num_batches
             epoch_losses.append(avg_epoch_loss)
             print(f"Epoch {epoch + 1}/{epochs}, Loss: {avg_epoch_loss}")
 
         return epoch_losses
+
 
     def predict(self, X_test):
         A = X_test

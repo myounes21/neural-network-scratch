@@ -1,8 +1,6 @@
 import numpy as np
 
 class BinaryCrossEntropyLoss:
-    def __init__(self):
-        pass  # no params for now
 
     def loss(self, y_pred, y_true):
         m = y_true.shape[1]
