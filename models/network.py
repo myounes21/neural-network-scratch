@@ -44,9 +44,16 @@ class NN:
                 num_batches += 1
 
                 # Backward pass with immediate weight updates
+                # Step 1: Compute ALL gradients first (don't update yet)
                 dA = self.loss.loss_derivative(A, y_batch)
+                gradients = []
                 for layer in reversed(self.layers):
                     dA, dW, db = layer.backward(dA)
+                    gradients.append((dW, db))
+
+                # Step 2: Update ALL parameters simultaneously
+                gradients.reverse()  # Reverse to match layer order
+                for layer, (dW, db) in zip(self.layers, gradients):
                     self.optimizer.step(layer, dW, db)
 
             avg_epoch_loss = current_epoch_loss / num_batches
