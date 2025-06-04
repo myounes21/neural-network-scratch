@@ -10,24 +10,30 @@ class MiniBatchSGD:
 
     def get_batches(self, X, y):
         """Generate mini-batches from the data"""
-        m = X.shape[1]  # number of examples
-        indices = np.random.permutation(m)
-        n_batches = m // self.batch_size
+        m = X.shape[1]
 
-        for i in range(n_batches):
-            start_idx = i * self.batch_size
-            end_idx = start_idx + self.batch_size
-            batch_indices = indices[start_idx:end_idx]
-            yield X[:, batch_indices], y[:, batch_indices]
+        if m == 0:
+            return  # Or yield nothing: yield from ()
+
+        if m < self.batch_size:
+            yield X, y
+        else:
+            indices = np.random.permutation(m)
+            n_batches = m // self.batch_size
+
+            for i in range(n_batches):
+                start_idx = i * self.batch_size
+                end_idx = start_idx + self.batch_size
+                batch_indices = indices[start_idx:end_idx]
+                yield X[:, batch_indices], y[:, batch_indices]
+
+            if m % self.batch_size != 0:
+                start_idx = n_batches * self.batch_size
+                batch_indices = indices[start_idx:]
+                yield X[:, batch_indices], y[:, batch_indices]
 
     def step(self,layer, dW, db):
         """Update layer parameters"""
         layer._W -= self.lr * dW
         layer._b -= self.lr * db
         return layer._W, layer._b
-
-    # def step(self, params, gradients):
-    #     """Update parameters using gradients"""
-    #     for param_name in params:
-    #         params[param_name] -= self.lr * gradients[param_name]
-    #     return params
