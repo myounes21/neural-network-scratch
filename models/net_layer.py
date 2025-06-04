@@ -9,8 +9,12 @@ class Layer:
         self.cache = {}
 
     def initialize(self, input_dim):
-        self._W = np.random.randn(self.n_units, input_dim)
-        self._b = np.zeros((self.n_units, 1))
+        if self.activation_name == "relu":
+            self._W = np.random.randn(self.n_units, input_dim) * np.sqrt(2. / input_dim)
+            self._b = np.full((self.n_units, 1), 0.01)
+        else:  # For sigmoid or other activations
+            self._W = np.random.randn(self.n_units, input_dim)
+            self._b = np.zeros((self.n_units, 1))
 
     def forward(self, A_prev):
         Z = self._W @ A_prev + self._b
