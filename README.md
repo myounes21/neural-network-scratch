@@ -67,7 +67,7 @@ Binary cross-entropy loss function:
 Run the example usage script:
 
 ```bash
-python example_usage.py
+python main.py
 ````
 
 
