@@ -30,7 +30,7 @@ neural-network-scratch/
 ├── main.py                   # Entry point to run your custom setup
 ├── requirements.txt          # Dependencies
 └── README.md                 # You're here
-
+```
 
 ---
 
