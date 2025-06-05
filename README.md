@@ -1,45 +1,36 @@
-```markdown
 # 🧠 Neural Network from Scratch
 
-A flexible, modular implementation of a fully-connected neural network built **from scratch using NumPy**. Designed for educational purposes and experimentation, this network supports any number of hidden layers, various activation functions, and mini-batch training using proper backpropagation and initialization.
+A flexible, modular implementation of a fully-connected neural network built **from scratch using NumPy**.
 
 ---
 
 ## 🚀 Features
 
 - ✅ **Multi-layer Neural Network**: Define architectures with any number of layers and units.
-- 🔁 **Multiple Activation Functions**: Supports `Sigmoid`, `ReLU`, and `Tanh`.
-- 🎯 **Weight Initialization**: Uses Xavier for sigmoid/tanh and He for ReLU.
-- ⚙️ **Mini-batch Gradient Descent**: Configurable batch sizes for efficient training.
-- 🧮 **Binary Cross-Entropy Loss**: Ideal for binary classification tasks.
+- 🧩 **Multiple Activation Functions**: Supports `Sigmoid`, `ReLU`, and `Tanh`.
+- ⚙️ **Weight Initialization**: Uses Xavier for sigmoid/tanh and He for ReLU.
+- ⛓ **Mini-batch Gradient Descent**: Configurable batch sizes for efficient training.
+- 📊 **Binary Cross-Entropy Loss**: Ideal for binary classification tasks.
 - 🧠 **Mathematically Correct Backpropagation**: Gradient computation is cleanly separated from parameter updates.
 
 ---
 
 ## 📂 Project Structure
 
-```
-
+```plaintext
 neural-network-scratch/
-│
 ├── models/
-│   └── net\_layer.py          # Layer class: forward/backward propagation
-│
+│   ├── net_layer.py          # Layer class: forward/backward propagation
+│   └── neural_network.py     # NeuralNetwork class (configurable & correct)
 ├── optimizers/
-│   └── mini\_batch\_sgd.py     # Mini-batch SGD optimizer
-│
+│   └── mini_batch_sgd.py     # Mini-batch SGD optimizer
 ├── losses/
-│   └── cross\_entropy.py      # Binary cross-entropy loss
-│
-├── neural\_network.py         # NeuralNetwork class (configurable & correct)
-│
-├── example\_usage.py          # Example training & evaluation script
-│
+│   └── cross_entropy.py      # Binary cross-entropy loss
+├── example_usage.py          # Example training & evaluation script
+├── main.py                   # Entry point to run your custom setup
 ├── requirements.txt          # Dependencies
-│
 └── README.md                 # You're here
 
-````
 
 ---
 
